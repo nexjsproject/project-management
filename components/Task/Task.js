@@ -1,16 +1,24 @@
 "use client"
 
-import { useCallback, useEffect, useMemo } from "react";
+import { useState } from "react";
 import Column from "./Column"
 import TaskDIalog from "./TaskDIalog"
-import update from "immutability-helper";
-import { DndProvider, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTaskStore } from "@/utils/useStore";
-import { ItemTypes } from "@/utils/DragDrop/ItemTypes";
 
 export default function Task() {
-
+  const [activeCard, setActiveCard] = useState(null);
+  const tasks = useTaskStore(state => state.tasks)
+  const setTasks = useTaskStore(state => state.setTasks)
+  const onDrop = (status, position) => {
+    if (activeCard == null || activeCard === undefined) return;
+    const taskToMove = tasks[activeCard];
+    const updateTasks = tasks.filter((task, index) => index !== activeCard);
+    updateTasks.splice(position, 0, {
+      ...taskToMove,
+      status: status,
+    });
+    setTasks(updateTasks);
+  };
 
 
   return (
@@ -21,9 +29,12 @@ export default function Task() {
 
     <section className='mt-10 flex gap-6 lg:gap-12'   >
 
-        <Column title='Todo' status='todo'   />
-        <Column title='In Progress' status='inProgress' />
-        <Column title='Done' status='done' />
+        <Column title='Todo' status='todo' setActiveCard={setActiveCard}
+          onDrop={onDrop}   />
+        <Column title='In Progress' status='inProgress' setActiveCard={setActiveCard}
+          onDrop={onDrop} />
+        <Column title='Done' status='done' setActiveCard={setActiveCard}
+          onDrop={onDrop} />
       </section>
 
     </>

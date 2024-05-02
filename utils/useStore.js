@@ -8,18 +8,19 @@ export const useTaskStore = create()(
     set => ({
       tasks: [],
       draggedTask: null,
-      addTask: (title, description,status) => {
+      addTask: (title, description,status,data) => {
         console.log(title, description)
         return set(state => ({
 
           tasks: [
             ...state.tasks,
-            { id: uuid(), title, description, status: status }
+            { id: uuid(), ...data,title, description, status: status, }
           ]
         }))
       }
       ,
       dragTask: (id) => set({ draggedTask: id }),
+      setTasks: (data) => set({ tasks: data }),
       updateTaskPosition: (updatedData) =>
         set(state => {
           updatedData.map((updatedTask) => {

@@ -14,7 +14,7 @@ export default function TaskDIalog() {
 
     const onFinish = (values) => {
         console.log('Success:', values);
-        addTask(values.title, values.description,values.status)
+        addTask(values.title, values.description,values.status,values)
     };
 
   return (

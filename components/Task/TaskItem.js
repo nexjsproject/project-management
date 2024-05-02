@@ -6,7 +6,9 @@ export default function TaskItem({
   id,
   title,
   description,
-  status
+  status,
+  setActiveCard,
+  index
 }) {
   const dragTask = useTaskStore(state => state.dragTask)
   const removeTask = useTaskStore(state => state.removeTask)
@@ -17,7 +19,13 @@ export default function TaskItem({
         'flex cursor-move items-start justify-between rounded-lg bg-white px-3 py-2 text-gray-900'
         
       }
-      onDragStart={() => dragTask(id)}
+     
+      onDragStart={() =>{
+        dragTask(id)
+        setActiveCard(index)
+      } 
+    }
+      onDragEnd={() => setActiveCard(null)}
       draggable
     >
       <div>
