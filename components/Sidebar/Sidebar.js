@@ -1,52 +1,35 @@
-"use client"
-import Image from 'next/image'
-import Link from 'next/link'
-import React, { useState } from 'react';
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useState } from "react";
 import {
-  AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   PieChartOutlined,
   ProjectOutlined,
   MacCommandOutlined,
-  AppstoreAddOutlined
-} from '@ant-design/icons';
-import { Button, Menu } from 'antd';
+  AppstoreAddOutlined,
+} from "@ant-design/icons";
+import { Button, Menu } from "antd";
 
 const items = [
   {
-    key: '1',
+    key: "1",
     icon: <PieChartOutlined />,
-    label: 'Dashboard',
+    label: "Dashboard",
   },
-  
+
   {
-    key: '2',
-    label: 'Projects',
+    key: "2",
+    label: <Link href="/project">Project List</Link>,
     icon: <ProjectOutlined />,
-    children: [
-      {
-        key: '3',
-        icon: <MacCommandOutlined />,
-        label: <Link href='/project' >Project List</Link>,
-      },
-      {
-        key: '4',
-        icon: <AppstoreAddOutlined />,
-        label: <Link href='/project/add' >Add Project</Link>,
-      },
-      
-    ],
   },
- 
+  {
+    key: "3",
+    label: <Link href="/task">Task List</Link>,
+    icon: <ProjectOutlined />,
+  },
 ];
 
-
 export default function Sidebar() {
-
   const [collapsed, setCollapsed] = useState(false);
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -54,13 +37,10 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={
-        `absolute left-0 top-0 z-9999 flex h-screen w-[256px] flex-col overflow-y-hidden bg-primary duration-300 ease-linear   lg:static lg:translate-x-0 `
-        
-      }
+      className={`absolute left-0 top-0 z-9999 flex h-screen w-[256px] flex-col overflow-y-hidden bg-primary duration-300 ease-linear   lg:static lg:translate-x-0 `}
     >
- {/* <!-- SIDEBAR HEADER --> */}
- <div className="relative flex w-full items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+      {/* <!-- SIDEBAR HEADER --> */}
+      <div className="relative flex w-full items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <Link className="flex items-center" href="/">
           {/* <Image
             className="h-6 w-6 rounded-md"
@@ -69,17 +49,12 @@ export default function Sidebar() {
             src={"/images/logo/logo-icon.png"}
             alt="Logo"
           /> */}
-         
-            <h1 className=" ml-2 text-xl font-semibold text-white">
-              Admin
-            </h1>
-      
+
+          <h1 className=" ml-2 text-xl font-semibold text-white">Admin</h1>
         </Link>
-       
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
 
-   
       <Menu
         // defaultSelectedKeys={['1']}
         // defaultOpenKeys={['2']}
@@ -87,9 +62,8 @@ export default function Sidebar() {
         theme="dark"
         inlineCollapsed={collapsed}
         items={items}
-        className='bg-primary'
+        className="bg-primary"
       />
-
     </aside>
-  )
+  );
 }
